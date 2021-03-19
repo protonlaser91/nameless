@@ -2,17 +2,25 @@ import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
 
+/*let  usersArray=[
 
-export default class getbanlist implements IBotCommand {
 
-    private readonly _command = "getleaderboard"
+    ["fanman"= 0.2],
+    ["sanjit"= 4],
+    ["arnav"= 1.2],
+    [fairy= 2],
+]*/
+
+export default class getleaderboard implements IBotCommand {
+
+    private readonly _command = "leaderboard"
 
     name(): string {
-        return "getleaderboard";
+        return "leaderboard";
     } 
 
     help(): string {
-        return "getleaderboard";
+        return "leaderboard";
     }   
     
     cooldown(): number{
@@ -29,10 +37,10 @@ export default class getbanlist implements IBotCommand {
         .setColor('#0099ff')
         .setAuthor(Bot.user!.username, Bot.user!.avatarURL()!)
         //.setImage('https://i.redd.it/l28662sbcec51.png')
-        .setImage('https://i.imgur.com/aowYZQG.jpeg')
+        .setThumbnail('https://i.imgur.com/aowYZQG.jpeg')
         //.setAuthor(msg.author.username)
         .addFields(
-            { name: 'my field title', value: 'some stuff' },
+          //  { name: usersArray[0], value: usersArray[0] },
             { name: 'my field title2', value: 'some stuff' },
             { name: 'my field title3', value: 'some stuff' }
         )
