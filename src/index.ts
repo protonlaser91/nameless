@@ -27,14 +27,14 @@ function randint(min: number,max: number) // min and max included
 
 Bot.on("ready", () => {
     console.log("This bot is online!"); //standard protocol when starting up the bot
-    Bot.user!.setPresence({ activity: {type: "WATCHING", name: 'hackathon' }, status: 'dnd' })
+    Bot.user!.setPresence({ activity: {type: "WATCHING", name: 'you through your window' }, status: 'dnd' })
     //.then(console.log)
     .catch(console.error);
 
     let allUsers = Bot.users.cache.array(); //get all Users and store them in an array
     for (let i = 0; i < allUsers.length; i++){
         if (!db.has(allUsers[i].id)){ //if User ID is not already in database (db) then add them, else do nothing
-            db.set(allUsers[i].id,{lastTenMsgs:[],sentiment:0,strikes:0})
+            db.set(allUsers[i].id,{msgArray:[],sentiment:0,strikes:0,recycleAmt:0})
         }
     } 
     
