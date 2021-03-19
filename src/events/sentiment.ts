@@ -31,7 +31,7 @@ export default class sentiment implements IBotEvent {
     
 
     async runEvent(msg: Discord.Message, Bot: Discord.Client): Promise<void> {
-        if (msg.channel.id != `821743564731973674` && msg.channel.id != `822258266075430933` || msg.content.startsWith("!"))
+        if (msg.content.startsWith("!"))
                return;
         
         let totalMsg: string; 
@@ -65,6 +65,7 @@ export default class sentiment implements IBotEvent {
                     db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
                     );
+                    msg.channel.send(`Sentiment score has been updated for user ${msg.author.username}, this round had ${score}`)
                     GlobalVars.credits = body['status']['remaining_credits']
 
                   });
