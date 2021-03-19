@@ -18,14 +18,14 @@ export class GlobalVars {
   public static credits: number = NaN;
 }
 
-export default class sentiment implements IBotEvent {
+export default class asentiment implements IBotEvent {
   
     name(): string {
-        return "sentiment";
+        return "asentiment";
     } 
 
     help(): string {
-        return "sentiment";
+        return "asentiment";
     }   
 
     

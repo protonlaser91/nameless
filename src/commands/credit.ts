@@ -1,6 +1,6 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
-import { GlobalVars } from "../events/sentiment";
+import { GlobalVars } from "../events/asentiment";
 
 
 export default class credit implements IBotCommand {

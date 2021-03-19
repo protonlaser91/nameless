@@ -2,7 +2,7 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
-import { values } from "../events/sentiment";
+import { values } from "../events/asentiment";
 
 export default class profile implements IBotCommand {
 

@@ -4,7 +4,7 @@ var https = require('follow-redirects').https;
 var fs = require('fs');
 import * as db from "quick.db";
 import TwoWayMap from "../util/TwoWayMap";
-import { GlobalVars, values } from "../events/sentiment";
+import { GlobalVars, values } from "../events/asentiment";
 
 export default class sentiment implements IBotCommand {
 
