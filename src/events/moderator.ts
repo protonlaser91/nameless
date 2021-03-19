@@ -19,9 +19,8 @@ export default class moderator implements IBotEvent {
     
     
     async runEvent(msg: Discord.Message, Bot: Discord.Client): Promise<void> {
-        if (msg.channel.id != `816678642254872680` || msg.content.startsWith("!"))
-                return;
-        let allMessages: string = db.get(`${msg.author.id}.msgArray`).join();
+
+        let allMessages: string = db.get(`${msg.author.id}.msgArray`).join('');
         console.log(allMessages)
         for(var i=0;i<forbiddenWords.length;i++){
           if (allMessages.includes(forbiddenWords[i])) {
