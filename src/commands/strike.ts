@@ -1,6 +1,5 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
-import { credits } from "../events/sentiment";
 import * as db from "quick.db";
 
 export default class strike implements IBotCommand {
