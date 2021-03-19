@@ -27,11 +27,13 @@ export default class strike implements IBotCommand {
         let strikeAmount = db.add(`${mentionedUser!.id}.strikes`,1);
         switch (strikeAmount.strikes){
             case 1:
-                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes!`)
+                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strike!`)
+                break;
             default:
-
+                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes!`)
+                break;
         }
-        msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes!`)
+        
         console.log(strikeAmount)
     }
 }

@@ -30,7 +30,6 @@ export default class getbanlist implements IBotCommand {
         msg.guild?.fetchBans().then(a => {
             for (const user of a.array()){
                 msg.author.send(count++ + ". " + user.user.username + ", ");
-                
             }
         })
     }
