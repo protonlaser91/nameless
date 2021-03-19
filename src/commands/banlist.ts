@@ -1,7 +1,7 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 
-export default class getbanlist implements IBotCommand {
+export default class banlist implements IBotCommand {
 
     private readonly _command = "banlist"
 

@@ -7,7 +7,7 @@ import * as db from "quick.db";
 
     ["fanman"= 0.2],
     ["sanjit"= 4],
-    ["arnav"= 1.2],
+    ["speckled"= 1.2],
     [fairy= 2],
 ]*/
 

@@ -23,6 +23,11 @@ export default class profile implements IBotCommand {
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
+        if (args[0] != null && args[0].toLowerCase().includes('dev')){
+            msg.reply(db.get(`${msg.author.id}.msgArray`).length + " items in the array bruh");
+            msg.reply(db.get(`${msg.author.id}.recycleAmt`));
+    }
+
         let sentimentScore = db.get(`${msg.author.id}.sentiment`)
         let strikes = db.get(`${msg.author.id}.strikes`)
         let moneyEmbed = new Discord.MessageEmbed()
