@@ -86,7 +86,7 @@ async function handleCommand(msg: Discord.Message){
             if (!commandClass.isThisCommand(command) ){
                 continue;
             } //Checks IBotCommands (located in api.ts) for layout, if isThisCommand String is not equal to command, skip!
-            if (!cooldowns.has(commandClass.name())) { //if name String in api.ts (IBotCommand) == to command
+            if (!cooldowns.has(commandClass.name())) { //if name String in capi.ts (IBotCommand) == to command
                 cooldowns.set(commandClass.name(), new Discord.Collection()); //store the command name and a obj key-val 
             }
             
@@ -132,11 +132,11 @@ function loadCommands(commandsPath: string){
 function loadEvents(commandsPath: string){
     if (!Config.config.events || (Config.config.events as string[]).length == 0) return; 
 
-    for (const eventName of Config.config.events as string[]){ //turns commands in config.ts into a string array and iterates over them
-        const eventsClass = require(`${commandsPath}/${eventName}`).default; //imports the command file (default=ts) from file directory
+    for (const eventName of Config.config.events as string[]){ //turns events in config.ts into a string array and iterates over them
+        const eventsClass = require(`${commandsPath}/${eventName}`).default; //imports the event file (default=ts) from file directory
 
         const event = new eventsClass() as IBotEvent; //command now follows same layout as IBotCommand in form commandsClass(), created new object
-        events.push(event); //adds commands to command array
+        events.push(event); //adds event to events array
     }
 }
 

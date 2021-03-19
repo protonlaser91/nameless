@@ -5,7 +5,7 @@ import { IBotCommand } from "../api/capi";
 
 export default class fetchmessage implements IBotCommand {
 
-    private readonly _command = "fetchmessage"
+    private readonly aliases = ["fm","fetch","fetchmessage"]
 
     name(): string {
         return "fetchMessage";
@@ -19,7 +19,7 @@ export default class fetchmessage implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {

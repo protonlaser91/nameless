@@ -3,7 +3,7 @@ import { IBotCommand } from "../api/capi";
 
 export default class banlist implements IBotCommand {
 
-    private readonly _command = "banlist"
+    private readonly aliases = ["banlist","bans"]
 
     name(): string {
         return "banlist";
@@ -17,7 +17,7 @@ export default class banlist implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {

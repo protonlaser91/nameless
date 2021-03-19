@@ -5,7 +5,7 @@ import { credits } from "../events/sentiment";
 
 export default class credit implements IBotCommand {
 
-    private readonly _command = "credit"
+    private readonly aliases = ["credit"]
 
     name(): string {
         return "credit";
@@ -19,7 +19,7 @@ export default class credit implements IBotCommand {
         return 5;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {

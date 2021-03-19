@@ -61,7 +61,6 @@ export default class sentiment implements IBotEvent {
                   body1 = JSON.parse(Buffer.concat(chunks).toString());
                    let score = values[body1[`score_tag`]]
                     let recycle = db.get(`${msg.author.id}.recycleAmt`)
-                    msg.channel.send("new updated score: " + 1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`))
                     db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
                     );

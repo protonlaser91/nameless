@@ -11,9 +11,9 @@ import * as db from "quick.db";
     [fairy= 2],
 ]*/
 
-export default class getleaderboard implements IBotCommand {
+export default class leaderboard implements IBotCommand {
 
-    private readonly _command = "leaderboard"
+    private readonly aliases = ["leaderboard","lb"]
 
     name(): string {
         return "leaderboard";
@@ -27,7 +27,7 @@ export default class getleaderboard implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {

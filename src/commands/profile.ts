@@ -5,7 +5,7 @@ import * as db from "quick.db";
 
 export default class profile implements IBotCommand {
 
-    private readonly _command = "profile"
+    private readonly aliases = ["profile","user","me"]
 
     name(): string {
         return "profile";
@@ -19,9 +19,8 @@ export default class profile implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
-
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
         if (args[0] != null && args[0].toLowerCase().includes('dev')){
             msg.reply(db.get(`${msg.author.id}.msgArray`).length + " items in the array bruh");

@@ -5,7 +5,7 @@ import * as db from "quick.db";
 
 export default class getbanlist implements IBotCommand {
 
-    private readonly _command = "help"
+    private readonly aliases = ["help"]
 
     name(): string {
         return "help";
@@ -19,7 +19,7 @@ export default class getbanlist implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {

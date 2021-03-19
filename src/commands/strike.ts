@@ -5,7 +5,7 @@ import * as db from "quick.db";
 
 export default class strike implements IBotCommand {
 
-    private readonly _command = "strike"
+    private readonly aliases = ["strike"]
 
     name(): string {
         return "strike";
@@ -19,7 +19,7 @@ export default class strike implements IBotCommand {
         return 2;
     }
     isThisCommand(command: string): boolean {
-        return command === this._command;
+        return this.aliases.includes(command);
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
