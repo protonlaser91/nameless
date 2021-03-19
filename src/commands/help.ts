@@ -31,8 +31,9 @@ export default class getbanlist implements IBotCommand {
         //.setAuthor(msg.author.username)
         //.addField(mod,'Mod only commands')
         .addFields(
-            { name: '!banlist', value: 'DMs the mod with the list of banned users from the server' },
-            { name: '!strike', value: 'A manual strike to a user' }
+            { name: '!banlist', value: 'Replies with the list of banned users from the server' },
+            { name: '!strike', value: 'A manual strike to a user' },
+            { name: '!getsentiment', value: 'Replies with the sentiment score of specified user' }
         )
         //.addField('Member available commands',' ')
         .addFields(
