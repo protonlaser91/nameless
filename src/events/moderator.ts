@@ -1,34 +1,35 @@
 import * as Discord from "discord.js";
 import { IBotEvent } from "../api/eapi";
-//import values from "./sentiment"; idk how to import the values array
+import  values  from "../commands/sentiment";
 var https = require('follow-redirects').https;
 var fs = require('fs');
 import * as db from "quick.db";
 import sentiment from "./sentiment";
 //export let credits: number = NaN
-var forbiddenWords=['banana','apple','strawberry'];//use fruit names
-export default class delete1 implements IBotEvent {
+var forbiddenWords=['banana','apple','strawberry', 'pineapple','grape'];//use fruit names
+export default class moderator implements IBotEvent {
 
     name(): string {
-        return "delete1";
+        return "moderator";
     }
 
     help(): string {
-        return "delete1";
+        return "moderator";
     }   
     
-
+    
     async runEvent(msg: Discord.Message, Bot: Discord.Client): Promise<void> {
         if (msg.channel.id != `816678642254872680` || msg.content.startsWith("!"))
                 return;
-      
+        let allMessages: string = db.get(`${msg.author.id}.msgArray`).join();
+        console.log(allMessages)
         for(var i=0;i<forbiddenWords.length;i++){
-          if (msg.content.includes(forbiddenWords[i])) {
+          if (allMessages.includes(forbiddenWords[i])) {
             //const mentionedUser = msg.mentions.users.first();
             let strikeAmount = db.add(`${msg.author.id}.strikes`,1);
             msg.reply(`${msg.author.username} now has ${db.get(`${msg.author.id}.strikes`)} strikes!`)
             console.log(strikeAmount)
-            msg.delete();
+            //msg.delete();
             console.log('Deleted message due to forbidden word');
             msg.author.send("Hey, you used a bad word in your recent message. It was deleted and you were given a strike."
             +"You now have "+`${db.get(`${msg.author.id}.strikes`)} strikes!`);
