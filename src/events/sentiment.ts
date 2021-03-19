@@ -3,22 +3,21 @@ import { IBotEvent } from "../api/eapi";
 var https = require('follow-redirects').https;
 var fs = require('fs');
 import * as db from "quick.db";
+import TwoWayMap from "../util/TwoWayMap";
 
-export let values: {[values: string]: number}  = {
+export let values: TwoWayMap  = new TwoWayMap({
   "P+": 1,
   "P": 0.5,
   "NEU" : 0,
   "NONE" : 0,
   "N" : -0.5,
   "N+": -1,
-}
+});
+
 export let credits: number = NaN
 
 export default class sentiment implements IBotEvent {
-
-
-    private readonly _command = "sentiment"
-
+  
     name(): string {
         return "sentiment";
     } 
@@ -59,7 +58,7 @@ export default class sentiment implements IBotEvent {
                   
                   res.on("end", function (chunk: any) {
                   body1 = JSON.parse(Buffer.concat(chunks).toString());
-                   let score = values[body1[`score_tag`]]
+                   let score = values.get(body1[`score_tag`])
                     let recycle = db.get(`${msg.author.id}.recycleAmt`)
                     db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
@@ -102,7 +101,7 @@ export default class sentiment implements IBotEvent {
            let j = () => {
              var newSize = 16777214 - 2;
              var oldSize = 1 - (-1);
-             var oldScale: number = values[score] - (-1);
+             var oldScale: number = values.get(score) - (-1);
              return (newSize * oldScale / oldSize) + 2 as number;
          
          }

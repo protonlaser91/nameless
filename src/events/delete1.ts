@@ -9,10 +9,6 @@ import sentiment from "./sentiment";
 var forbiddenWords=['banana','apple','strawberry'];//use fruit names
 export default class delete1 implements IBotEvent {
 
-    private readonly _command = "delete1"
-
-    
-
     name(): string {
         return "delete1";
     }
