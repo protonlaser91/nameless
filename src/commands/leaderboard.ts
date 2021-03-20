@@ -10,7 +10,12 @@ import { elegance, values } from "../events/asentiment"
     ["speckled"= 1.2],
     [fairy= 2],
 ]*/
-function cTC(a: (string | number)[], b: (string | number)[]) {
+function cTC(a: (number)[], b: (number)[]) {
+    if (isNaN(a[1]))
+        return 1;
+    if (isNaN(b[1]))
+        return -1;
+
     if (a[1] === b[1]) {
         return 0;
     }
@@ -55,7 +60,7 @@ export default class leaderboard implements IBotCommand {
             }
         }
         userArray.sort(cTC)
-      //  console.log(userArray)
+    //    console.log(userArray)
         const embed = new Discord.MessageEmbed()
         .setTitle('Positivity Leaderboard!')
         
@@ -142,7 +147,7 @@ export default class leaderboard implements IBotCommand {
         
         embed.setTimestamp()
         let ind = this.search(userArray,msg.author.id);
-        let rounded = Math.round(userArray[ind][1]*2)/2;
+        let rounded = db.get(`${msg.author.id}.recycleAmt`) == 0 ? NaN : Math.round(userArray[ind][1]*2)/2;
         let initializer = "";
 
                 if(ind==0)
