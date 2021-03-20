@@ -31,7 +31,7 @@ class getbanlist {
             const embed = new Discord.MessageEmbed()
                 .setTitle('Eclipse Help is Here!')
                 .setDescription('Here are a list of our commands!')
-                .setColor('#0099ff')
+                .setColor('#0ae090')
                 .setAuthor(Bot.user.username, Bot.user.avatarURL())
                 .addFields({ name: '!banlist', value: 'Replies with the list of banned users from the server' }, { name: '!me, !user, !profile', value: 'Gives your sentiment score and total profanity strikes' }, { name: '!me, !user, !profile @username', value: 'Gives the mentioned member\'s sentiment score and total profanity strikes (MOD ONLY)' }, { name: '!strike @username', value: 'A manual strike for mods to use on members' }, { name: '!strike @username reset', value: 'Resets a member\'s strikes' }, { name: '!senti, !sentiment \'any messsage\'', value: 'Our bot reports back the sentiment score of the given message in a clean format' })
                 .addFields({ name: '!leaderboard', value: 'Gives leaderboard of the top ten most positive members based on sentiment scores' })

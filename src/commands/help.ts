@@ -26,7 +26,7 @@ export default class getbanlist implements IBotCommand {
         const embed = new Discord.MessageEmbed()
         .setTitle('Eclipse Help is Here!')
         .setDescription('Here are a list of our commands!')
-        .setColor('#0099ff')
+        .setColor('#0ae090')
         .setAuthor(Bot.user!.username, Bot.user!.avatarURL()!)
         //.setAuthor(msg.author.username)
         //.addField(mod,'Mod only commands')

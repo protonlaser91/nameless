@@ -23,7 +23,7 @@ export default class strike implements IBotCommand {
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
         const mentionedUser = msg.mentions.users.first();
-        if(args[1].toLowerCase().includes('res')){
+        if(args.length>1 && args[1].includes('res')){
             db.set(`${mentionedUser!.id}.strikes`,0);
             msg.reply(`${mentionedUser?.username} now has 0 strikes!`)
             return;
@@ -31,10 +31,10 @@ export default class strike implements IBotCommand {
         let strikeAmount = db.add(`${mentionedUser!.id}.strikes`,1);
         switch (strikeAmount.strikes){
             case 1:
-                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strike(s)!`)
+                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strike!`)
                 break;
             default:
-                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes(s)!`)
+                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes!`)
                 break;
         }
         

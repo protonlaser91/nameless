@@ -28,19 +28,22 @@ export default class profile implements IBotCommand {
             msg.reply(db.get(`${msg.author.id}.recycleAmt`));
     }
         const mentionedUser = msg.mentions.users.first();
+
         let targetedUser;
         if(mentionedUser!=null){
             targetedUser=mentionedUser;
+
         }
         else{
             targetedUser=msg.author;
+
         }
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
         let strikes = db.get(`${targetedUser.id}.strikes`)
         let moneyEmbed = new Discord.MessageEmbed()
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
-            .setColor([0,200,0])
+            .setColor('##00fff9')
             .addField(`Sentiment`,`**${values.revGet(sentimentScore)}**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
