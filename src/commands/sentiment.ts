@@ -50,7 +50,11 @@ export default class sentiment implements IBotCommand {
                let j = () => {
                  var newSize = 16777214 - 2;
                  var oldSize = 1 - (-1);
-                 var oldScale: number = values.get(score) - (-1);
+                 if (values.get(score) == NaN)
+                  var oldScale: number = 0 - (-1);
+                 else
+                  var oldScale: number = values.get(score) - (-1);
+                  
                  return (newSize * oldScale / oldSize) + 2 as number;
              
              }

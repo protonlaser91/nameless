@@ -9,7 +9,7 @@ export let values: TwoWayMap  = new TwoWayMap({
   "P+": 1,
   "P": 0.5,
   "NEU" : 0,
-  "NONE" : 0,
+  "NONE" : NaN,
   "N" : -0.5,
   "N+": -1,
 });
@@ -36,7 +36,7 @@ export default class asentiment implements IBotEvent {
         
         let totalMsg: string; 
         let arr = db.get(`${msg.author.id}.msgArray`);
-        if (arr.length < 10){ // if not full
+        if (arr.length < 2){ // if not full
                   db.push(`${msg.author.id}.msgArray`,msg.content);
         } else {
                 // calculate sentiment for last 10 messages, clear array
@@ -61,10 +61,11 @@ export default class asentiment implements IBotEvent {
                   res.on("end", function (chunk: any) {
                   body = JSON.parse(Buffer.concat(chunks).toString());
                    let score = values.get(body[`score_tag`])
-                    let recycle = db.get(`${msg.author.id}.recycleAmt`)
-                    db.set(`${msg.author.id}.sentiment`,
+                   let recycle = db.get(`${msg.author.id}.recycleAmt`)
+                    if (score != NaN)
+                      db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
-                    );
+                      );
                     msg.channel.send(`Sentiment score has been updated for user ${msg.author.username}, this round had ${score}`)
                     GlobalVars.credits = body['status']['remaining_credits']
 
