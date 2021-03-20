@@ -14,6 +14,15 @@ export let values: TwoWayMap  = new TwoWayMap({
   "N+": -1,
 });
 
+export let colorMap: TwoWayMap = new TwoWayMap({
+  "P+": '#2cff00',
+  "P": '#2da015',
+  "NEU" : '#84a7ac',
+  "NONE" : '#84a7ac',
+  "N" : '#f98b8b',
+  "N+": '#ff0000',
+})
+
 export class GlobalVars {
   public static credits: number = NaN;
 }

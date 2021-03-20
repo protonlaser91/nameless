@@ -2,7 +2,7 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
-import { values } from "../events/asentiment";
+import { values, colorMap } from "../events/asentiment";
 
 export default class profile implements IBotCommand {
 
@@ -28,22 +28,24 @@ export default class profile implements IBotCommand {
             msg.reply(db.get(`${msg.author.id}.recycleAmt`));
     }
         const mentionedUser = msg.mentions.users.first();
-
+        
         let targetedUser;
         if(mentionedUser!=null){
             targetedUser=mentionedUser;
-
+            
         }
         else{
             targetedUser=msg.author;
 
         }
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
+        let rounded = Math.round(sentimentScore*2)/2
+        let color = colorMap.get(values.revGet(rounded))
         let strikes = db.get(`${targetedUser.id}.strikes`)
         let moneyEmbed = new Discord.MessageEmbed()
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
-            .setColor('##00fff9')
+            .setColor(color)
             .addField(`Sentiment`,`**${values.revGet(sentimentScore)}**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
