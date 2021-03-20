@@ -74,18 +74,21 @@ export default class leaderboard implements IBotCommand {
                 if(userArray[i][0]=='Eclipse'){
                     continue;
                 }
+                if(userArray[i][1]==undefined || userArray[i][1]==NaN){
+                    userArray[i][1]=0;
+                }
                 let rounded = Math.round(userArray[i][1]*2)/2
                 if(i==0){
                     embed.addFields(
-                        { name: `<:first_place:822885876144275499>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                        { name: `<:first_place:822885876144275499>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1].toFixed(2)},)
                 }
                 else if(i==1){
                     embed.addFields(
-                        { name: `<:second_place:822887005679648778>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                        { name: `<:second_place:822887005679648778>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1].toFixed(2)},)
                 }
                 else if(i==2){
                     embed.addFields(
-                        { name: `<:third_place:822887031143137321>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                        { name: `<:third_place:822887031143137321>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1].toFixed(2)},)
                 }
                 else{
                     embed.addFields(
@@ -94,10 +97,12 @@ export default class leaderboard implements IBotCommand {
                 
         }
         for(var i=0;i<userArray.length;i++){
-            if(userArray[i][0]==msg.author.username && i>10){
+            let rounded = Math.round(userArray[i][1]*2)/2
+            if(userArray[i][0]==msg.author.username){
                 embed.addFields(
-                    {name:msg.author.username,value:'You\'re place is '+i}
+                    {name:(i+1)+'. '+msg.author.username,value:values.revGet(rounded)+': '+userArray[i][1].toFixed(2)}
                 )
+                break;
             }
         }
         embed.setTimestamp()
