@@ -33,7 +33,6 @@ export default class getbanlist implements IBotCommand {
         .addFields(
             { name: '!banlist (MOD ONLY)', value: 'Replies with the list of banned users from the server' },
             //{ name: '!strike', value: 'A manual strike to a user' },
-            //{ name: '!getsentiment', value: 'Replies with the sentiment score of specified user' },
             { name: '!me, !user, !profile', value: 'Gives your sentiment score and total profanity strikes' },
             { name: '!me, !user, !profile @username (MOD ONLY)', value: 'Gives the mentioned member\'s sentiment score and total profanity strikes' },
             { name: '!strike @username (MOD ONLY)', value: 'A manual strike for mods to use on members' },
