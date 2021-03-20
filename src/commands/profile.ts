@@ -27,16 +27,23 @@ export default class profile implements IBotCommand {
             msg.reply(db.get(`${msg.author.id}.msgArray`).length + " items in the array bruh");
             msg.reply(db.get(`${msg.author.id}.recycleAmt`));
     }
-
-        let sentimentScore = db.get(`${msg.author.id}.sentiment`)
-        let strikes = db.get(`${msg.author.id}.strikes`)
+        const mentionedUser = msg.mentions.users.first();
+        let targetedUser;
+        if(mentionedUser!=null){
+            targetedUser=mentionedUser;
+        }
+        else{
+            targetedUser=msg.author;
+        }
+        let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
+        let strikes = db.get(`${targetedUser.id}.strikes`)
         let moneyEmbed = new Discord.MessageEmbed()
-            .setTitle(`${msg.author.username}'s Sentiment`)
-            .setAuthor(msg.author.username,msg.author.avatarURL()!)
+            .setTitle(`${targetedUser.username}'s Sentiment`)
+            .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
             .setColor([0,200,0])
             .addField(`Sentiment`,`**${values.revGet(sentimentScore)}**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
-            .setThumbnail(msg.author.avatarURL()!)
+            .setThumbnail(targetedUser.avatarURL()!)
             .setTimestamp(new Date())
             .setFooter('bruh h1gh Technologies', 'https://cdn.discordapp.com/attachments/819032675469361154/822502319147974666/lunges.png');
         
