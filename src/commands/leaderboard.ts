@@ -41,15 +41,17 @@ export default class leaderboard implements IBotCommand {
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
         let userArray:any=[];
         let guildArray=msg.guild!.members.cache.array().map(element=>{
-            return element.id
+            return element.id 
         })
         for(const o of db.all()){
+            if (o.ID == "817230166824321054")
+                continue;
             if(guildArray.includes(o.ID)){
-            /*    let thanos = Bot.users.fetch(o.ID);
-                thanos.then(user=> {
-                
-            });*/
-            userArray.push([Bot.users.cache.find(user => user.id === o.ID)!.username, o.data.sentiment])
+
+            let senti = o.data.sentiment;
+            if (senti == undefined || senti == NaN)
+                senti = 0;
+            userArray.push([Bot.users.cache.find(user => user.id === o.ID)!.username, senti])
             }
         }
         userArray.sort(cTC)
@@ -64,16 +66,13 @@ export default class leaderboard implements IBotCommand {
         .setThumbnail('https://i.imgur.com/aowYZQG.jpeg')
         //.setAuthor(msg.author.username)
         var count;
-        if(msg.guild!.memberCount<10){
-           count = msg.guild!.memberCount;
+        if(msg.guild!.memberCount<11){
+           count = msg.guild!.memberCount-1;
         }
         else{
             count=10;
         }
         for(var i=0;i<count;i++){
-                if(userArray[i][0]=='Eclipse'){
-                    continue;
-                }
                 if(userArray[i][1]==undefined || userArray[i][1]==NaN){
                     userArray[i][1]=0;
                 }
@@ -92,7 +91,7 @@ export default class leaderboard implements IBotCommand {
                 }
                 else{
                     embed.addFields(
-                  { name: i+1+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                  { name: i+1+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1].toFixed(2)},)
                 }
                 
         }
