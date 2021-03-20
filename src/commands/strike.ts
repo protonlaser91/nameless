@@ -23,7 +23,7 @@ export default class strike implements IBotCommand {
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
         const mentionedUser = msg.mentions.users.first();
-        if(args[1].toLowerCase().includes('res')){
+        if(args.length > 2 && args[1].toLowerCase().includes('res')){
             db.set(`${mentionedUser!.id}.strikes`,0);
             msg.reply(`${mentionedUser?.username} now has 0 strikes!`)
             return;
