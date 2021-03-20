@@ -100,7 +100,7 @@ export default class leaderboard implements IBotCommand {
             let rounded = Math.round(userArray[i][1]*2)/2
             if(userArray[i][0]==msg.author.username){
                 embed.addFields(
-                    {name:(i+1)+'. '+msg.author.username,value:values.revGet(rounded)+': '+userArray[i][1].toFixed(2)}
+                    {name:'Your place '+(i+1)+'. '+msg.author.username,value:values.revGet(rounded)+': '+userArray[i][1].toFixed(2)}
                 )
                 break;
             }
