@@ -34,7 +34,7 @@ export default class strike implements IBotCommand {
                 msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strike(s)!`)
                 break;
             default:
-                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strikes(s)!`)
+                msg.reply(`${mentionedUser?.username} now has ${db.get(`${mentionedUser!.id}.strikes`)} strike(s)!`)
                 break;
         }
         

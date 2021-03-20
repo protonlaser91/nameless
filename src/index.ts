@@ -47,7 +47,6 @@ Bot.on("guildMemberAdd", member => {
    console.log(member.user)
    var role: any = member.guild.roles.cache.find(role => role.id == "822258289814536203");
     member.roles.add(role);
- 
 })
 
 Bot.on("message", msg => {

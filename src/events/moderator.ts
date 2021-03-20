@@ -26,7 +26,7 @@ export default class moderator implements IBotEvent {
         for(var i=0;i<forbiddenWords.length;i++){
           if (allMessages.includes(forbiddenWords[i])) {
             //const mentionedUser = msg.mentions.users.first();
-            let strikeAmount = db.add(`${msg.author.id}.strikes`,1);
+            db.add(`${msg.author.id}.strikes`,1);
             msg.reply(`${msg.author.username} now has ${db.get(`${msg.author.id}.strikes`)} strikes!`)
             db.set(`${msg.author.id}.msgArray`, arr.slice(0,arr.length-forbiddenWords[i].length))
             //console.log(db.get(`${msg.author.id}.msgArray`))
@@ -36,11 +36,18 @@ export default class moderator implements IBotEvent {
             msg.author.send("Hey, you used a bad word in your recent message. It was deleted and you were given a strike. "
             +"You now have "+`${db.get(`${msg.author.id}.strikes`)} strikes!`);
             // delete message, log, etc.
+            
             break;
           }
           
         }
-        
+        let strikeAmount = db.get(`${msg.author!.id}.strikes`);
+          if(strikeAmount>5){
+            var role: any = msg.guild!.roles.cache.find(role => role.name == 'mute');
+            msg.guild?.members.fetch(msg.author!.id).then(user=>{
+                user.roles.add(role)
+            })
+          }
                 
                /* const deleted = new Discord.MessageEmbed()
                                 .setAuthor(msg.author.username,msg.author.avatarURL()!,``)

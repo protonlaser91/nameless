@@ -45,7 +45,7 @@ export default class asentiment implements IBotEvent {
         
         let totalMsg: string; 
         let arr = db.get(`${msg.author.id}.msgArray`);
-        if (arr.length < 2){ // if not full
+        if (arr.length < 10){ // if not full
                   db.push(`${msg.author.id}.msgArray`,msg.content);
         } else {
                 // calculate sentiment for last 10 messages, clear array
