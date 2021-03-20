@@ -42,7 +42,7 @@ export default class getbanlist implements IBotCommand {
         )
         //.addField('Member available commands',' ')
         .addFields(
-            { name:'!leaderboard', value:'Gives leaderboard of the top ten most positive members based on sentiment scores'},
+            { name:'!leaderboard, !lb', value:'Gives leaderboard of the top ten most positive members based on sentiment scores'},
         )
     
         .setTimestamp()

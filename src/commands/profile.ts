@@ -38,7 +38,7 @@ export default class profile implements IBotCommand {
             targetedUser=msg.author;
 
         }
-        
+                
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
         let rounded = Math.round(sentimentScore*2)/2
         let color = colorMap.get(values.revGet(rounded))

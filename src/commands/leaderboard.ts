@@ -1,7 +1,7 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
-
+import { values } from "../events/asentiment"
 /*let  usersArray=[
 
 
@@ -19,12 +19,6 @@ function cTC(a: (string | number)[], b: (string | number)[]) {
     }
 }
 
-export function getUserFromID(Bot: Discord.Client, id:string){
-    let thanos = Bot.users.fetch(id);
-        thanos.then(user=> {
-            return user.username
-        });
-}
 export default class leaderboard implements IBotCommand {
 
     private readonly aliases = ["leaderboard","lb"]
@@ -69,29 +63,45 @@ export default class leaderboard implements IBotCommand {
         //.setImage('https://i.redd.it/l28662sbcec51.png')
         .setThumbnail('https://i.imgur.com/aowYZQG.jpeg')
         //.setAuthor(msg.author.username)
-        
+        var count;
         if(msg.guild!.memberCount<10){
-            for(var i=0;i<msg.guild!.memberCount;i++){
-                if(userArray[i][0]=='Eclipse'){
-                    continue;
-                }
-                embed.addFields(
-                  { name: userArray[i][0], value: userArray[i][1]},)
-            }
+           count = msg.guild!.memberCount;
         }
         else{
-            for(var i=0;i<10;i++){
+            count=10;
+        }
+        for(var i=0;i<count;i++){
                 if(userArray[i][0]=='Eclipse'){
                     continue;
                 }
+                let rounded = Math.round(userArray[i][1]*2)/2
+                if(i==0){
+                    embed.addFields(
+                        { name: `<:first_place:822885876144275499>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                }
+                else if(i==1){
+                    embed.addFields(
+                        { name: `<:second_place:822887005679648778>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                }
+                else if(i==2){
+                    embed.addFields(
+                        { name: `<:third_place:822887031143137321>`+(i+1)+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                }
+                else{
+                    embed.addFields(
+                  { name: i+1+'. '+userArray[i][0], value: values.revGet(rounded)+': '+userArray[i][1]},)
+                }
+                
+        }
+        for(var i=0;i<userArray.length;i++){
+            if(userArray[i][0]==msg.author.username && i>10){
                 embed.addFields(
-                  { name: userArray[i][0], value: userArray[i][1]},)
+                    {name:msg.author.username,value:'You\'re place is '+i}
+                )
             }
         }
-        
-    
         embed.setTimestamp()
-    
+            
     msg.channel.send(embed);         
     /*let arr = db.all();
     for(let i = 0; i<arr.length; i++){
