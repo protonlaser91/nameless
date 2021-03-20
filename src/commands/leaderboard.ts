@@ -18,6 +18,13 @@ function cTC(a: (string | number)[], b: (string | number)[]) {
         return (a[1] < b[1]) ? 1 : -1;
     }
 }
+
+export function getUserFromID(Bot: Discord.Client, id:string){
+    let thanos = Bot.users.fetch(id);
+        thanos.then(user=> {
+            return user.username
+        });
+}
 export default class leaderboard implements IBotCommand {
 
     private readonly aliases = ["leaderboard","lb"]
@@ -44,11 +51,16 @@ export default class leaderboard implements IBotCommand {
         })
         for(const o of db.all()){
             if(guildArray.includes(o.ID)){
-                userArray.push([o.ID, o.data.sentiment])
+            /*    let thanos = Bot.users.fetch(o.ID);
+                thanos.then(user=> {
+                
+            });*/
+            userArray.push([Bot.users.cache.find(user => user.id === o.ID)!.username, o.data.sentiment])
             }
         }
         userArray.sort(cTC)
         console.log(userArray)
+        
         const embed = new Discord.MessageEmbed()
         .setTitle('Positivity Leaderboard!')
         .setDescription('Here are the top ten most positive people in the server!')
@@ -59,17 +71,21 @@ export default class leaderboard implements IBotCommand {
         //.setAuthor(msg.author.username)
         
         if(msg.guild!.memberCount<10){
-            for(var i=1;i<msg.guild!.memberCount;i++){
+            for(var i=0;i<msg.guild!.memberCount;i++){
+                if(userArray[i][0]=='Eclipse'){
+                    continue;
+                }
                 embed.addFields(
-                  { name: userArray[i][0], value: userArray[i][1]},
-              )
+                  { name: userArray[i][0], value: userArray[i][1]},)
             }
         }
         else{
-            for(var i=1;i<11;i++){
+            for(var i=0;i<10;i++){
+                if(userArray[i][0]=='Eclipse'){
+                    continue;
+                }
                 embed.addFields(
-                  { name: userArray[i][0], value: userArray[i][1]},
-              )
+                  { name: userArray[i][0], value: userArray[i][1]},)
             }
         }
         
