@@ -30,15 +30,12 @@ export default class profile implements IBotCommand {
         const mentionedUser = msg.mentions.users.first();
         
         let targetedUser;
-        if(mentionedUser!=null){
+        if(mentionedUser!=null)
             targetedUser=mentionedUser;
-            
-        }
-        else{
+        else
             targetedUser=msg.author;
-
-        }
-                
+        
+        
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
         let rounded = Math.round(sentimentScore*2)/2
         let color = colorMap.get(values.revGet(rounded))
@@ -47,7 +44,7 @@ export default class profile implements IBotCommand {
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
             .setColor(color)
-            .addField(`Sentiment`,`**${values.revGet(sentimentScore)}**`,true)
+            .addField(`Sentiment`,`**${values.revGet(rounded)}**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
             .setTimestamp(new Date())
