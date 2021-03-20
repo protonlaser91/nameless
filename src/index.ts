@@ -34,7 +34,7 @@ Bot.on("ready", () => {
     let allUsers = Bot.users.cache.array(); //get all Users and store them in an array
     for (let i = 0; i < allUsers.length; i++){
         if (!db.has(allUsers[i].id)){ //if User ID is not already in database (db) then add them, else do nothing
-            db.set(allUsers[i].id,{msgArray:[],sentiment:0,strikes:0,recycleAmt:0})
+            db.set(allUsers[i].id,{msgArray:[],sentiment:NaN,strikes:0,recycleAmt:0})
         }
     } 
     
