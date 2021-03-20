@@ -71,12 +71,13 @@ export default class asentiment implements IBotEvent {
                   body = JSON.parse(Buffer.concat(chunks).toString());
                    let score = values.get(body[`score_tag`])
                    let recycle = db.get(`${msg.author.id}.recycleAmt`)
-                    if (score != NaN)
+                    if (score != NaN){
                       db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
                       );
                     db.add(`${msg.author.id}.recycleAmt`,1);
                     msg.channel.send(`Sentiment score has been updated for user ${msg.author.username}, this round had ${score}`)
+                    }
                     GlobalVars.credits = body['status']['remaining_credits']
 
                   });
