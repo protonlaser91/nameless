@@ -42,7 +42,7 @@ Bot.on("ready", () => {
 
 Bot.on("guildMemberAdd", member => {
    if (!db.has(member.id)){ //if new member not in db, add them!
-       db.set(member.id,{sentiment:0,strikes:0})
+    db.set(member.id,{msgArray:[],sentiment:NaN,strikes:0,recycleAmt:0})
    }
    console.log(member.user)
    var role: any = member.guild.roles.cache.find(role => role.id == "822258289814536203");

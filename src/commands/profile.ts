@@ -2,7 +2,7 @@
 import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
-import { values, colorMap } from "../events/asentiment";
+import { values, colorMap, elegance } from "../events/asentiment";
 
 export default class profile implements IBotCommand {
 
@@ -56,7 +56,7 @@ export default class profile implements IBotCommand {
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
             .setColor(color)
-            .addField(`Sentiment`,`**${values.revGet(rounded)}**`,true)
+            .addField(`Sentiment`,`**${elegance.get(values.revGet(rounded))}**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
             .setTimestamp(new Date())

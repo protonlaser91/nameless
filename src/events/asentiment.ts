@@ -23,6 +23,15 @@ export let colorMap: TwoWayMap = new TwoWayMap({
   "N+": '#ff0000',
 })
 
+export let elegance: TwoWayMap = new TwoWayMap({
+  "P+": 'Very Positive',
+  "P": 'Positive',
+  "NEU" : 'Neutral',
+  "NONE" : 'Not Enough Data',
+  "N" : 'Negative',
+  "N+": 'Very Negative',
+})
+
 export class GlobalVars {
   public static credits: number = NaN;
 }
@@ -71,7 +80,7 @@ export default class asentiment implements IBotEvent {
                   body = JSON.parse(Buffer.concat(chunks).toString());
                    let score = values.get(body[`score_tag`])
                    let recycle = db.get(`${msg.author.id}.recycleAmt`)
-                    if (score != NaN){
+                    if (!isNaN(score)){
                       db.set(`${msg.author.id}.sentiment`,
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
                       );
