@@ -44,6 +44,7 @@ export default class moderator implements IBotEvent {
         let strikeAmount = db.get(`${msg.author!.id}.strikes`);
           if(strikeAmount>5){
             var role: any = msg.guild!.roles.cache.find(role => role.name == 'mute');
+            console.log(typeof role)
             msg.guild?.members.fetch(msg.author!.id).then(user=>{
                 user.roles.add(role)
             })

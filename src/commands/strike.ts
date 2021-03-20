@@ -22,6 +22,10 @@ export default class strike implements IBotCommand {
     }
 
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
+        if(!(msg!.member!.roles.cache.has('821193739358830612'))){
+            msg.author.send("Unfortunately, you cannot access this method because you do not have adminstrator privileges in the server.")
+            return;
+        }
         const mentionedUser = msg.mentions.users.first();
         if(args.length > 2 && args[1].toLowerCase().includes('res')){
             db.set(`${mentionedUser!.id}.strikes`,0);

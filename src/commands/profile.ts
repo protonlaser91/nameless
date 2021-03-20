@@ -23,17 +23,29 @@ export default class profile implements IBotCommand {
         return this.aliases.includes(command);
     }
     async runCommand(args: string[], msg: Discord.Message, Bot: Discord.Client): Promise<void> {
+        
         if (args[0] != null && args[0].toLowerCase().includes('dev')){
             msg.reply(db.get(`${msg.author.id}.msgArray`).length + " items in the array bruh");
             msg.reply(db.get(`${msg.author.id}.recycleAmt`));
-    }
+        }
+    
         const mentionedUser = msg.mentions.users.first();
         
         let targetedUser;
-        if(mentionedUser!=null)
-            targetedUser=mentionedUser;
-        else
+        
+        if(mentionedUser!=null&&mentionedUser!=undefined){
+            if(!(msg!.member!.roles.cache.has('god'))){
+                msg.author.send("Unfortunately, you cannot access this method because you do not have adminstrator privileges in the server. Instead, we put your profile!")
+                targetedUser=msg.author;
+            } 
+            else{
+                targetedUser=mentionedUser;
+            }
+        }
+        else{
             targetedUser=msg.author;
+        }
+            
         
         
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
