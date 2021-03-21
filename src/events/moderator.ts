@@ -6,7 +6,7 @@ var fs = require('fs');
 import * as db from "quick.db";
 //import sentiment from "./sentiment";
 //export let credits: number = NaN
-var forbiddenWords=['banana','apple','strawberry', 'pineapple','grape'];//use fruit names
+var forbiddenWords=['banana','apple','strawberry', 'pineapple','grape','melon','peach','avacado','mango'];//use fruit names
 export default class moderator implements IBotEvent {
 
     name(): string {
