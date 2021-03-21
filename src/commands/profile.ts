@@ -33,7 +33,7 @@ export default class profile implements IBotCommand {
         
         let targetedUser;
         
-        if(mentionedUser!=null&&mentionedUser!=undefined){
+        if(mentionedUser!=null || mentionedUser!=undefined){
             if(!(msg!.member!.roles.cache.has('god'))){
                 msg.author.send("Unfortunately, you cannot access this method because you do not have adminstrator privileges in the server. Instead, we put your profile!")
                 targetedUser=msg.author;
