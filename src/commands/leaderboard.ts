@@ -108,12 +108,15 @@ export default class leaderboard implements IBotCommand {
                 break;
         }
         embed.setDescription(`Here are the top ${bruh} most positive people in the server!`)
-        let average = 0;
+        let average = 0, activeCount = 0;
         for (const c of userArray){
-            if (!isNaN(c[1]))
+            if (!isNaN(c[1])){
                 average += c[1]
+                activeCount++;
+            }
         }
-        embed.addField(`Average Server Sentiment: `,`${(average/userArray.length).toFixed(2)} (${elegance.get(values.revGet(Math.round(average*2)/2))})`);
+        average /= activeCount;
+        embed.addField(`Average Server Sentiment: `,`${(average).toFixed(2)} (${elegance.get(values.revGet(Math.round(average*2)/2))})`);
 
 
         for(var i=0;i<count;i++){
