@@ -27,7 +27,7 @@ export default class strike implements IBotCommand {
             return;
         }
         const mentionedUser = msg.mentions.users.first();
-        if(args.length > 2 && args[1].toLowerCase().includes('res')){
+        if(args.length > 1 && args[1].toLowerCase().includes('res')){
             db.set(`${mentionedUser!.id}.strikes`,0);
             msg.reply(`${mentionedUser?.username} now has 0 strikes!`)
             return;

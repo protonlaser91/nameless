@@ -33,7 +33,7 @@ class strike {
                 return;
             }
             const mentionedUser = msg.mentions.users.first();
-            if (args.length > 2 && args[1].toLowerCase().includes('res')) {
+            if (args.length > 1 && args[1].toLowerCase().includes('res')) {
                 db.set(`${mentionedUser.id}.strikes`, 0);
                 msg.reply(`${mentionedUser === null || mentionedUser === void 0 ? void 0 : mentionedUser.username} now has 0 strikes!`);
                 return;
