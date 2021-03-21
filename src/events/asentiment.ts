@@ -54,7 +54,7 @@ export default class asentiment implements IBotEvent {
         
         let totalMsg: string; 
         let arr = db.get(`${msg.author.id}.msgArray`);
-        if (arr.length < 7){ // if not full
+        if (arr.length < 4){ // if not full
                   db.push(`${msg.author.id}.msgArray`,msg.content);
         } else {
                 // calculate sentiment for last 10 messages, clear array
@@ -85,7 +85,7 @@ export default class asentiment implements IBotEvent {
                       1/(recycle + 1) * score + recycle/(recycle + 1) * db.get(`${msg.author.id}.sentiment`)
                       );
                     db.add(`${msg.author.id}.recycleAmt`,1);
-                //    msg.channel.send(`Sentiment score has been updated for user ${msg.author.username}, this round had ${score}`)
+              //      msg.channel.send(`Sentiment score has been updated for user ${msg.author.username}, this round had ${score}`)
                     }
                     GlobalVars.credits = body['status']['remaining_credits']
 
@@ -103,8 +103,4 @@ export default class asentiment implements IBotEvent {
 
         }
 
-    }
-    function randint(min: number,max: number) // min and max included
-    {
-            return Math.floor(Math.random()*(max-min+1)+min);
     }
