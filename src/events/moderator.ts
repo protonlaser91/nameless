@@ -33,8 +33,8 @@ export default class moderator implements IBotEvent {
             //msg.delete();
             //console.log(allMessages)
             //console.log('Deleted message due to forbidden word');
-            msg.author.send("Hey, you used a bad word in your recent message. It was deleted and you were given a strike. "
-            +"You now have "+`${db.get(`${msg.author.id}.strikes`)} strikes!`);
+      //      msg.author.send("Hey, you used a bad word in your recent message. It was deleted and you were given a strike. "
+      //      +"You now have "+`${db.get(`${msg.author.id}.strikes`)} strikes!`);
             // delete message, log, etc.
             
             break;
