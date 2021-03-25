@@ -77,7 +77,12 @@ export default class asentiment implements IBotEvent {
                   });
                   
                   res.on("end", function (chunk: any) {
+                    try {
                   body = JSON.parse(Buffer.concat(chunks).toString());
+                    } catch {
+                      console.error();
+                      return;
+                    }
                    let score = values.get(body[`score_tag`])
                    let recycle = db.get(`${msg.author.id}.recycleAmt`)
                     if (!isNaN(score)){

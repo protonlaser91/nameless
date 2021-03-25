@@ -2,14 +2,12 @@ import * as Discord from "discord.js";
 import { IBotCommand } from "../api/capi";
 import * as db from "quick.db";
 import { elegance, values } from "../events/asentiment"
-/*let  usersArray=[
 
+export function confidence(x: number, n: number) {
+    let BOUND = 0.05;
+    BOUND * Math.sqrt(n) / Math.sqrt(x)
+}
 
-    ["fanman"= 0.2],
-    ["sanjit"= 4],
-    ["speckled"= 1.2],
-    [fairy= 2],
-]*/
 function cTC(a: (number)[], b: (number)[]) {
     if (isNaN(a[1]))
         return 1;
@@ -17,6 +15,10 @@ function cTC(a: (number)[], b: (number)[]) {
         return -1;
 
     if (a[1] === b[1]) {
+        if (a[2] > b[2])
+            return 1;
+        else if (b[2] < a[2])
+            return -1;
         return 0;
     }
     else {
@@ -56,7 +58,7 @@ export default class leaderboard implements IBotCommand {
             let senti = o.data.sentiment;
             if (senti == undefined || senti == null)
                 senti = NaN;
-            userArray.push([o.ID, senti])
+            userArray.push([o.ID, senti, o.data.recycleAmt])
             }
         }
         userArray.sort(cTC)
@@ -108,7 +110,7 @@ export default class leaderboard implements IBotCommand {
                 break;
         }
         embed.setDescription(`Here are the top ${bruh} most positive people in the server!`)
-        let average = 0, activeCount = 0;
+        let average: any = 0, activeCount = 0;
         for (const c of userArray){
             if (!isNaN(c[1])){
                 average += c[1]
@@ -116,7 +118,12 @@ export default class leaderboard implements IBotCommand {
             }
         }
         average /= activeCount;
-        embed.addField(`Average Server Sentiment: `,`${(average).toFixed(2)} (${elegance.get(values.revGet(Math.round(average*2)/2))})`);
+        if (isNaN(average))
+            average = "N/A";
+        else
+            average = average.toFixed(2);
+
+        embed.addField(`Average Server Sentiment: `,`${(average)} (${elegance.get(values.revGet(isNaN(average) ? NaN : Math.round(average*2)/2))})`);
 
 
         for(var i=0;i<count;i++){
@@ -124,10 +131,12 @@ export default class leaderboard implements IBotCommand {
             let rounded;
                 if(isNaN(userArray[i][1])){
                     rounded = NaN;
-                    userArray[i][1] = 0;
+                    userArray[i][1] = "N/A";
         }
-                 else 
+                 else {
                     rounded =  Math.round(userArray[i][1]*2)/2;
+                    userArray[i][1] = userArray[i][1].toFixed(2);
+    }
             
                 let initializer = "";
 
@@ -140,10 +149,10 @@ export default class leaderboard implements IBotCommand {
                 
                 if (userArray[i][0] == msg.author.id)
                     embed.addFields(
-                        { name:`${initializer} **#${(i+1)}: ${username}**`, value: `**${userArray[i][1].toFixed(2)} (${elegance.get(values.revGet(rounded))})**`},)
+                        { name:`${initializer} **#${(i+1)}: ${username}**`, value: `**${userArray[i][1]} (${elegance.get(values.revGet(rounded))})**`},)
                  else
                     embed.addFields(
-                        { name:`${initializer} #${(i+1)}: ${username}`, value: `${userArray[i][1].toFixed(2)} (${elegance.get(values.revGet(rounded))})`},)
+                        { name:`${initializer} #${(i+1)}: ${username}`, value: `${userArray[i][1]} (${elegance.get(values.revGet(rounded))})`},)
                 
                 
         }
@@ -159,8 +168,12 @@ export default class leaderboard implements IBotCommand {
                         initializer = `<:second_place:822887005679648778>`;                
                 else if(ind==2)
                         initializer = `<:third_place:822887031143137321>`;
-        embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**${userArray[ind][1].toFixed(2)} (${elegance.get(values.revGet(rounded))})**`)
-        msg.channel.send(embed);         
+        if (db.get(`${msg.author.id}.recycleAmt`) == 0)                
+            embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**N/A (${elegance.get(values.revGet(rounded))})**`)
+        else
+            embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**${Number(userArray[ind][1]).toFixed(2)} (${elegance.get(values.revGet(rounded))})**`)
+
+            msg.channel.send(embed);         
     
 }
 

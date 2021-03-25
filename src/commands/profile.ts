@@ -56,7 +56,7 @@ export default class profile implements IBotCommand {
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
             .setColor(color)
-            .addField(`Sentiment`,`**${elegance.get(values.revGet(rounded))}**`,true)
+            .addField(`Sentiment`,`**${sentimentScore.toFixed(2)} (${elegance.get(values.revGet(rounded))})**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
             .setTimestamp(new Date())
