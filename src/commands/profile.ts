@@ -49,6 +49,8 @@ export default class profile implements IBotCommand {
         
         
         let sentimentScore = db.get(`${targetedUser.id}.sentiment`)
+        let n =db.get(`${msg.author.id}.recycleAmt`);
+        const confidence = 1-n/(n+1);
         let rounded = Math.round(sentimentScore*2)/2
         let color = colorMap.get(values.revGet(rounded))
         let strikes = db.get(`${targetedUser.id}.strikes`)
@@ -56,7 +58,7 @@ export default class profile implements IBotCommand {
             .setTitle(`${targetedUser.username}'s Sentiment`)
             .setAuthor(targetedUser.username,targetedUser.avatarURL()!)
             .setColor(color)
-            .addField(`Sentiment`,`**${sentimentScore.toFixed(2)} (${elegance.get(values.revGet(rounded))})**`,true)
+            .addField(`Sentiment`,`**${sentimentScore.toFixed(2)} ± ${confidence.toFixed(2)} (${elegance.get(values.revGet(rounded))})**`,true)
             .addField(`Strikes`,`**${strikes}**`,true)
             .setThumbnail(targetedUser.avatarURL()!)
             .setTimestamp(new Date())

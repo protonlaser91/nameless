@@ -146,13 +146,19 @@ export default class leaderboard implements IBotCommand {
                         initializer = `<:second_place:822887005679648778>`;                
                 else if(i==2)
                         initializer = `<:third_place:822887031143137321>`;
-                
+
+                let confidence = "";
+                if (!isNaN(rounded)){
+                    const n = userArray[i][2];
+                    confidence = `± ${(1-n/(n+1)).toFixed(2)}`
+                }
+
                 if (userArray[i][0] == msg.author.id)
                     embed.addFields(
-                        { name:`${initializer} **#${(i+1)}: ${username}**`, value: `**${userArray[i][1]} (${elegance.get(values.revGet(rounded))})**`},)
+                        { name:`${initializer} **#${(i+1)}: ${username}**`, value: `**${userArray[i][1]} ${confidence} (${elegance.get(values.revGet(rounded))})**`},)
                  else
                     embed.addFields(
-                        { name:`${initializer} #${(i+1)}: ${username}`, value: `${userArray[i][1]} (${elegance.get(values.revGet(rounded))})`},)
+                        { name:`${initializer} #${(i+1)}: ${username}`, value: `${userArray[i][1]} ${confidence} (${elegance.get(values.revGet(rounded))})`},)
                 
                 
         }
@@ -168,10 +174,16 @@ export default class leaderboard implements IBotCommand {
                         initializer = `<:second_place:822887005679648778>`;                
                 else if(ind==2)
                         initializer = `<:third_place:822887031143137321>`;
+        
+                        
         if (db.get(`${msg.author.id}.recycleAmt`) == 0)                
             embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**N/A (${elegance.get(values.revGet(rounded))})**`)
-        else
-            embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**${Number(userArray[ind][1]).toFixed(2)} (${elegance.get(values.revGet(rounded))})**`)
+        else{
+            const n = userArray[ind][2];
+            let confidence = `± ${(1-n/(n+1)).toFixed(2)}`
+                
+            embed.addField(`${initializer} **#${ind+1}: ${msg.author.username}**`,`**${Number(userArray[ind][1]).toFixed(2)} ${confidence} (${elegance.get(values.revGet(rounded))})**`)
+        }
 
             msg.channel.send(embed);         
     
